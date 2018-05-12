@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+<div class ="col">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">Blog List</h1>
+
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for blog in blog_list %}
+            <tr>
+                <td><a href="{% url 'blog:detail' blog.pk %}">{{ blog.title }}</a></td>
+                <td>
+                    <form action="{% url 'blog:delete' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="blog_pk" value="{{ blog.pk }}">
+                        <button type="submit"></button>
+
+
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="row-md-6">
+
+
+            <p>
+                 <a href="{%url 'blog:create' %}">글쓰기</a>
+              </p>
+        </div>
+
+</div>
+</div>
+{% endblock %}
